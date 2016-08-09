@@ -56,7 +56,7 @@ function _M.bid(floor, dict_list)
                 break
             end
 
-            local rand_price = low_price * (1 + 0.02)
+            local rand_price = math.floor(low_price * (1 + 0.02 * math.random()))
 
             if high_price - rand_price >= profit then
                 profit = high_price - rand_price
