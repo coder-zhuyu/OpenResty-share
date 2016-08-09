@@ -20,8 +20,11 @@ function _M.bid(floor, dict_list)
 
             --ngx.log(ngx.INFO, cjson.encode(res))
             --local total_used_money = redis.get_from_redis('ad:usedmoney:' .. d['ad'].adId)
-            local total_used_money = res[1]
-            if type(total_used_money) ~= 'string' then
+            local total_used_money = nil
+            if res then
+                total_used_money = res[1]
+            end
+            if not total_used_money or total_used_money == ngx.null then
                 total_used_money = 0
             end
             total_used_money = tonumber(total_used_money)
@@ -33,8 +36,11 @@ function _M.bid(floor, dict_list)
             end
 
             --local stage_used_money = redis.get_from_redis('ad:usedmoney:' .. d['ad'].adId .. ":" .. tostring(d['stage']['stageId']))
-            local stage_used_money = res[2]
-            if type(stage_used_money) ~= 'string' then
+            local stage_used_money = nil
+            if res then
+                stage_used_money = res[2]
+            end
+            if not stage_used_money or stage_used_money == ngx.null then
                 stage_used_money = 0
             end
             stage_used_money = tonumber(stage_used_money)

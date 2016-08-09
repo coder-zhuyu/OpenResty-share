@@ -50,7 +50,8 @@ function _M.cache()
         database = "adview",
         user = "root",
         password = "123456",
-        max_packet_size = 1024 * 1024 }
+        max_packet_size = 1024 * 1024 
+    }
 
     if not ok then
         ngx.log(ngx.ERR, "failed to connect: " .. err .. ": " .. errno .. " " .. sqlstate)
