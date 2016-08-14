@@ -3,19 +3,17 @@ local red = redis:new()
 
 red:set_timeout(1000) -- 1 sec
 
--- or connect to a unix domain socket file listened
--- by a redis server:
--- local ok, err = red:connect("unix:/path/to/redis.sock")
-
 local ok, err = red:connect("127.0.0.1", 6379)
 if not ok then
     ngx.say("failed to connect: ", err)
     return
 end
 
-ok, err = red:set("cat", "an animal")
+local arg = ngx.req.get_uri_args()
+
+local ok, err = red:set(arg.key, arg.value)
 if not ok then
-    ngx.say("failed to set cat: ", err)
+    ngx.say("failed to set: ", err)
     return
 end
 
@@ -29,3 +27,4 @@ if not ok then
     ngx.say("failed to set keepalive: ", err)
     return
 end
+

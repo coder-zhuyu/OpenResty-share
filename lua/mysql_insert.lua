@@ -25,17 +25,17 @@ end
 
 local arg = ngx.req.get_uri_args()
 
--- run a select query
--- the result set:
+
 local res, err, errno, sqlstate =
-    db:query(string.format("select * from user where name='%s'", arg.name))
+    db:query(string.format([[insert into user (name, email, password) 
+                            values ('%s', '%s', '%s')]], arg.name, arg.email, arg.password))
 if not res then
     ngx.say("bad result: ", err, ": ", errno, ": ", sqlstate, ".")
     return
 end
 
-local cjson = require "cjson"
-ngx.say("result: ", cjson.encode(res))
+ngx.say(res.affected_rows, " rows inserted into table cats ",
+        "(last insert id: ", res.insert_id, ")")
 
 -- put it into the connection pool of size 100,
 -- with 10 seconds max idle timeout

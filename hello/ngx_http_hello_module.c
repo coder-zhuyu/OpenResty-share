@@ -133,7 +133,9 @@ static void ngx_http_hello_body_handler_callback(ngx_http_request_t * r)
 static ngx_int_t ngx_http_hello_body_handler(ngx_http_request_t * r)
 {
     /*read body, return ngx_str_t*/
-    ngx_str_t body = ngx_http_hello_get_body(r);
+    /*ngx_str_t body = ngx_http_hello_get_body(r);*/
+
+    ngx_str_t body = ngx_string("hello world\n");
 
     /*http response*/
     ngx_str_t type = ngx_string( "text/plain" );
@@ -246,3 +248,4 @@ static void exitprocess(ngx_cycle_t * cycle)
 {
 
 }
+
